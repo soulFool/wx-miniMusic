@@ -1,0 +1,32 @@
+<!--pages/detail-video/detail-video.wxml-->
+<wxs src="/utils/format.wxs" module="fmt"></wxs>
+
+<view class="page" style="height: {{ isPlay ? '100vh' : 'auto' }};">
+  <video class="video" src="{{ mvUrl }}" referrer-policy="origin" bindplay="onVideoPlay" 	bindpause="onVideoPause" 	bindended="onVideoPause"></video>
+
+  <scroll-view class="content" scroll-y="{{ isPlay }}">
+    <view class="info">
+      <view class="title">{{ mvInfo.name }}</view>
+      <view class="desc">{{ mvInfo.desc }}</view>
+      <view class="time">{{ fmt.formatCount(mvInfo.playCount) }}次播放 - {{ mvInfo.publishTime }}</view>
+    </view>
+
+    <view class="related-video-list">
+      <view class="related-title">推荐视频</view>
+      <block wx:for="{{ relatedVideoList }}" wx:key="vid">
+        <view class="item">
+          <view class="album">
+            <image class="image" src="{{ item.coverUrl }}" mode="widthFix"></image>
+            <view class="info">
+              <view class="count">{{ fmt.formatTime(item.playTime) }}</view>
+            </view>
+          </view>
+          <view class="desc">
+            <view class="title">{{ item.title }}</view>
+            <view class="name">{{ item.creator[0].userName }}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>
